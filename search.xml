@@ -4,26 +4,25 @@
   
     
     <entry>
-      <title></title>
-      <link href="/posts/0.html"/>
-      <url>/posts/0.html</url>
+      <title>Wed Aug 31 2022 00:00:00 GMT+0800 (中国标准时间)</title>
+      <link href="/posts/e42af308.html"/>
+      <url>/posts/e42af308.html</url>
       
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title></title>
-      <link href="/posts/0.html"/>
-      <url>/posts/0.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<hr><h2 id="blue-题目链接：acwing-1684-大型植被恢复-center"><a href="#blue-题目链接：acwing-1684-大型植被恢复-center" class="headerlink" title="@blue:题目链接：acwing 1684. 大型植被恢复[center]"></a><code>@blue:题目链接</code>：<a href="https://www.acwing.com/problem/content/1686/">acwing 1684. 大型植被恢复</a>[center]</h2><p>[TOC]</p><h2 id="题目大意-center"><a href="#题目大意-center" class="headerlink" title="题目大意[center]"></a>题目大意[center]</h2><p>有 n 个点和 m 条边，有四种颜色对每个点进行染色，每个点 <strong>最多能连接三条边</strong>，一条边的两个点<strong>不能染成相同的颜色</strong>请输出<strong>字典序最小</strong>的染色方法[+2]</p><h2 id="题意解析-center"><a href="#题意解析-center" class="headerlink" title="题意解析[center]"></a>题意解析[center]</h2><p>我们对每个点使用<strong>邻接表建边</strong>，用<strong>st</strong>数组进行标记，然后从遍历每个点，每个点染色后，其对应的另一个点就删去这个颜色，因为有四种颜色，每个点最多三条边，故<strong>一次遍历就能够得出答案</strong>[+2]</p><h2 id="代码-c-center"><a href="#代码-c-center" class="headerlink" title="代码(c++)[center]"></a>代码(c++)[center]</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> h[<span class="number">110</span>],e[<span class="number">310</span>],ne[<span class="number">310</span>],idx;</span><br><span class="line"><span class="type">bool</span> st[<span class="number">110</span>][<span class="number">5</span>];</span><br><span class="line"><span class="type">int</span> ans[<span class="number">110</span>];</span><br><span class="line"><span class="type">int</span> n,m;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    e[idx]=b; ne[idx]=h[a]; h[a]=idx++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="built_in">memset</span>(h,<span class="number">-1</span>,<span class="keyword">sizeof</span> h);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">        <span class="built_in">add</span>(a,b),<span class="built_in">add</span>(b,a);<span class="comment">//建边，把牛当成边，草地当成点</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123; <span class="comment">//遍历每一个点</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=<span class="number">4</span>;j++)</span><br><span class="line">        &#123;<span class="comment">//从头开始遍历，确保是最小字典序</span></span><br><span class="line">            <span class="keyword">if</span>(!st[i][j])</span><br><span class="line">            &#123;</span><br><span class="line">                ans[i]=j; </span><br><span class="line">                <span class="comment">//如果这种草能够选择，那么与这个点有边的点都不能选这种草</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> k=h[i];~k;k=ne[k]) st[e[k]][j]=<span class="number">1</span>;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) cout&lt;&lt;ans[i];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       
       
+      <categories>
+          
+          <category> 每日一题--队列队 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法，栈 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -51,6 +50,28 @@
       <url>/css/custom.css</url>
       
         <content type="html"><![CDATA[/* @font-face {  font-family: Candyhome;  src: url(https://cdn.cbd.int/anzhiyu-blog@1.1.6/fonts/Candyhome.ttf);  font-display: swap;  font-weight: lighter;} */@font-face {  font-family: ZhuZiAYuanJWD;  src: url(https://cdn.cbd.int/anzhiyu-blog@1.1.6/fonts/ZhuZiAWan.woff2);  font-display: swap;  font-weight: lighter;}div#menus {  font-family: 'ZhuZiAYuanJWD';}h1#site-title {  font-family: ZhuZiAYuanJWD;  font-size: 3em !important;}a.article-title,a.blog-slider__title,a.categoryBar-list-link,h1.post-title {  font-family: ZhuZiAYuanJWD;}.iconfont {  font-family: 'iconfont' !important;  font-size: 3em;  /* 可以定义图标大小 */  font-style: normal;  -webkit-font-smoothing: antialiased;  -moz-osx-font-smoothing: grayscale;}/* 时间轴生肖icon */svg.icon {  /* 这里定义svg.icon，避免和Butterfly自带的note标签冲突 */  width: 1em;  height: 1em;  /* width和height定义图标的默认宽度和高度*/  vertical-align: -0.15em;  fill: currentColor;  overflow: hidden;}.icon-zhongbiao::before {  color: #f7c768;}/* bilibli番剧插件 */.bangumi-active {  background: #dbecfe !important;  border-radius: 10px !important;}a.bangumi-tab:hover {  text-decoration: none !important;}.bangumi-button:hover {  background: #dbecfe !important;  border-radius: 10px !important;}a.bangumi-button.bangumi-nextpage:hover {  text-decoration: none !important;}.bangumi-button {  padding: 5px 10px !important;}a.bangumi-tab {  padding: 5px 10px !important;}svg.icon.faa-tada {  font-size: 1.1em;}/* 解决artitalk的图标问题 */#uploadSource > svg {  width: 1.19em;  height: 1.5em;}/*top-img黑色透明玻璃效果移除，不建议加，除非你执着于完全一图流或者背景图对比色明显 */#page-header:not(.not-top-img):before {  background-color: transparent !important;}/* 首页文章卡片 */#recent-posts > .recent-post-item {  background: rgba(255, 255, 255, 0.9);}/* 首页侧栏卡片 */#aside-content .card-widget {  background: rgba(255, 255, 255, 0.9);}/* 文章页面正文背景 */div#post {  background: rgba(255, 255, 255, 0.9);}/* 分页页面 */div#page {  background: rgba(255, 255, 255, 0.9);}/* 归档页面 */div#archive {  background: rgba(255, 255, 255, 0.9);}/* 标签页面 */div#tag {  background: rgba(255, 255, 255, 0.9);}/* 分类页面 */div#category {  background: rgba(255, 255, 255, 0.9);}/*夜间模式伪类遮罩层透明*/[data-theme='dark'] #recent-posts > .recent-post-item {  background: #121212;}[data-theme='dark'] .card-widget {  background: #121212 !important;}[data-theme='dark'] div#post {  background: #121212 !important;}[data-theme='dark'] div#tag {  background: #121212 !important;}[data-theme='dark'] div#archive {  background: #121212 !important;}[data-theme='dark'] div#page {  background: #121212 !important;}[data-theme='dark'] div#category {  background: #121212 !important;}[data-theme='dark'] div#category {  background: transparent !important;}/* 页脚透明 */#footer {  background: transparent !important;}/* 头图透明 */#page-header {  background: transparent !important;}#rightside > div > button {  border-radius: 5px;}/* 滚动条 */::-webkit-scrollbar {  width: 10px;  height: 10px;}::-webkit-scrollbar-thumb {  background-color: #49b1f5;  border-radius: 2em;}::-webkit-scrollbar-corner {  background-color: transparent;}::-moz-selection {  color: #fff;  background-color: #49b1f5;}/* 音乐播放器 *//* .aplayer .aplayer-lrc {  display: none !important;} */.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {  left: -66px !important;  transition: all 0.3s;  /* 默认情况下缩进左侧66px，只留一点箭头部分 */}.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {  left: 0 !important;  transition: all 0.3s;  /* 鼠标悬停是左侧缩进归零，完全显示按钮 */}.aplayer.aplayer-fixed {  z-index: 999999 !important;}/* 评论框  */.vwrap {  box-shadow: 2px 2px 5px #bbb;  background: rgba(255, 255, 255, 0.3);  border-radius: 8px;  padding: 30px;  margin: 30px 0px 30px 0px;}/* 设置评论框 */.vcard {  box-shadow: 2px 2px 5px #bbb;  background: rgba(255, 255, 255, 0.3);  border-radius: 8px;  padding: 30px;  margin: 30px 0px 0px 0px;}/* 鼠标图标 */body {  cursor: url('/img/x1.cur'), auto;}a,[type='button']:not(:disabled),[type='reset']:not(:disabled),[type='submit']:not(:disabled),button:not(:disabled) {  cursor: url('/img/x2.cur'), auto !important;}/* md网站下划线 */#article-container a:hover {  text-decoration: none !important;}#article-container #hpp_talk p img {  display: inline;}/* 404页面 */#error-wrap {  position: absolute;  top: 40%;  right: 0;  left: 0;  margin: 0 auto;  padding: 0 1rem;  max-width: 1000px;  transform: translate(0, -50%);}#error-wrap .error-content {  display: flex;  flex-direction: row;  justify-content: center;  align-items: center;  margin: 0 1rem;  height: 18rem;  border-radius: 8px;  background: var(--card-bg);  box-shadow: var(--card-box-shadow);  transition: all 0.3s;}#error-wrap .error-content .error-img {  box-flex: 1;  flex: 1;  height: 100%;  border-top-left-radius: 8px;  border-bottom-left-radius: 8px;  background-color: #49b1f5;  background-position: center;  background-size: cover;}#error-wrap .error-content .error-info {  box-flex: 1;  flex: 1;  padding: 0.5rem;  text-align: center;  font-size: 14px;  font-family: Titillium Web, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft JhengHei', 'Microsoft YaHei', sans-serif;}#error-wrap .error-content .error-info .error_title {  margin-top: -4rem;  font-size: 9em;}#error-wrap .error-content .error-info .error_subtitle {  margin-top: -3.5rem;  word-break: break-word;  font-size: 1.6em;}#error-wrap .error-content .error-info a {  display: inline-block;  margin-top: 0.5rem;  padding: 0.3rem 1.5rem;  background: var(--btn-bg);  color: var(--btn-color);}#body-wrap.error .aside-list {  display: flex;  flex-direction: row;  flex-wrap: nowrap;  bottom: 0px;  position: absolute;  padding: 1rem;  width: 100%;  overflow: scroll;}#body-wrap.error .aside-list .aside-list-group {  display: flex;  flex-direction: row;  flex-wrap: nowrap;  max-width: 1200px;  margin: 0 auto;}#body-wrap.error .aside-list .aside-list-item {  padding: 0.5rem;}#body-wrap.error .aside-list .aside-list-item img {  width: 100%;  object-fit: cover;  border-radius: 12px;}#body-wrap.error .aside-list .aside-list-item .thumbnail {  overflow: hidden;  width: 230px;  height: 143px;  background: var(--heo-card-bg);  display: flex;}#body-wrap.error .aside-list .aside-list-item .content .title {  -webkit-line-clamp: 2;  overflow: hidden;  display: -webkit-box;  -webkit-box-orient: vertical;  line-height: 1.5;  justify-content: center;  align-items: flex-end;  align-content: center;  padding-top: 0.5rem;  color: white;}#body-wrap.error .aside-list .aside-list-item .content time {  display: none;}/* 代码框主题 */#article-container figure.highlight {  border-radius: 10px;}]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
