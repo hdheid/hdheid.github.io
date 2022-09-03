@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>2022-09-03未来可期小组每日一题</title>
+      <link href="/posts/91dbe174.html"/>
+      <url>/posts/91dbe174.html</url>
+      
+        <content type="html"><![CDATA[<div class="tag link"><a class="link-card" title="acwing 1681. 谷仓刷漆" href="https://www.acwing.com/problem/content/1683/"><div class="left"><img src="https://img.hipyt.cn/imgs/2022/09/e3f773cfe32f6f4f.jpg"/></div><div class="right"><p class="text">acwing 1681. 谷仓刷漆</p><p class="url">https://www.acwing.com/problem/content/1683/</p></div></a></div><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>约翰给一个二维平面刷油漆，一共刷 n 次，每次刷的面积是一个矩形，会给出左下角和右上角的点的坐标来表示。在给出一个数 k，问 n 次刷漆过后被刷过 k 次漆的面积有多大。</p><h2 id="题意解析"><a href="#题意解析" class="headerlink" title="题意解析"></a>题意解析</h2><p>这个题目很明显要用到二维差分和二维前缀和的知识，我们将每一次刷过的矩形中的每个数加一，最后遍历整个二维平面，计算有多少个数等于 k 就行。<br><div class="tip key"><p>细节方面</p></div></p><blockquote><ol><li>由于题目给的是坐标轴上的坐标，就”相当于”二维数组的左上角和右下角，所以不用变换坐标</li><li>由于给的是点的坐标，我们需要的是格子的坐标，所以需要将给出的左下角的坐标加一</li><li><a href="https://www.acwing.com/solution/content/27325/">差分矩阵</a></li></ol></blockquote><h2 id="代码-c"><a href="#代码-c" class="headerlink" title="代码(c++)"></a>代码(c++)</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">1010</span>;</span><br><span class="line"><span class="type">int</span> a[N][N],b[N][N];</span><br><span class="line"><span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> x1,<span class="type">int</span> y1,<span class="type">int</span> x2,<span class="type">int</span> y2,<span class="type">int</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    b[x1][y1]+=c;</span><br><span class="line">    b[x1][y2+<span class="number">1</span>]-=c;</span><br><span class="line">    b[x2+<span class="number">1</span>][y1]-=c;</span><br><span class="line">    b[x2+<span class="number">1</span>][y2+<span class="number">1</span>]+=c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,k;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;k;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> max_x=<span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> x1,y1,x2,y2;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin&gt;&gt;x1&gt;&gt;y1&gt;&gt;x2&gt;&gt;y2;</span><br><span class="line">        <span class="built_in">insert</span>(x1+<span class="number">1</span>,y1+<span class="number">1</span>,x2,y2,<span class="number">1</span>);  <span class="comment">//因为给的点是坐标，我们用差分计算面积(格子数量)，所以需要加一</span></span><br><span class="line">        max_x=<span class="built_in">max</span>(max_x,<span class="built_in">max</span>(<span class="built_in">max</span>(x1+<span class="number">1</span>,x2+<span class="number">1</span>),<span class="built_in">max</span>(y1+<span class="number">1</span>,y2+<span class="number">1</span>)));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=max_x;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=max_x;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            b[i][j]+=b[i][j<span class="number">-1</span>]+b[i<span class="number">-1</span>][j]-b[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">            <span class="keyword">if</span>(b[i][j]==k) ans++;</span><br><span class="line">            <span class="comment">// cout&lt;&lt;b[i][j]&lt;&lt;&#x27; &#x27;;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// cout&lt;&lt;endl;</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 每日一题--未来可期小组 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 二维前缀和 </tag>
+            
+            <tag> 二维差分 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2022-09-03队列队每日一题</title>
       <link href="/posts/6f46db02.html"/>
       <url>/posts/6f46db02.html</url>
@@ -20,7 +47,11 @@
       
         <tags>
             
-            <tag> 动态规划,线性dp,最长上升子序列 </tag>
+            <tag> 动态规划 </tag>
+            
+            <tag> 线性dp </tag>
+            
+            <tag> 最长上升子序列 </tag>
             
         </tags>
       
@@ -70,7 +101,9 @@
       
         <tags>
             
-            <tag> 递归,暴力 </tag>
+            <tag> 递归 </tag>
+            
+            <tag> 暴力 </tag>
             
         </tags>
       
@@ -120,7 +153,9 @@
       
         <tags>
             
-            <tag> 单调栈,算法 </tag>
+            <tag> 算法 </tag>
+            
+            <tag> 单调栈 </tag>
             
         </tags>
       
@@ -145,7 +180,9 @@
       
         <tags>
             
-            <tag> 栈 - 算法 </tag>
+            <tag> 算法 </tag>
+            
+            <tag> 栈 </tag>
             
         </tags>
       
@@ -197,6 +234,17 @@
     
     
     <entry>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title></title>
       <link href="/css/custom.css"/>
       <url>/css/custom.css</url>
@@ -211,17 +259,6 @@
       <title>标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
