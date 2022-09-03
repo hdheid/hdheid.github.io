@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>2022-09-03队列队每日一题</title>
+      <link href="/posts/6f46db02.html"/>
+      <url>/posts/6f46db02.html</url>
+      
+        <content type="html"><![CDATA[<div class="tag link"><a class="link-card" title="力扣 646. 最长数对链" href="https://leetcode.cn/classic/problems/maximum-length-of-pair-chain/description/"><div class="left"><img src="https://img.hipyt.cn/imgs/2022/09/e3f773cfe32f6f4f.jpg"/></div><div class="right"><p class="text">力扣 646. 最长数对链</p><p class="url">https://leetcode.cn/classic/problems/maximum-length-of-pair-chain/description/</p></div></a></div><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给出 n 个数对，设 [a,b] , [c,d] (<strong>a&lt;b，c&lt;d</strong>)为一对数对，<span class='p red'>当且仅当 b < c 的时候，这两个数对可以形成数对链</span>，数对可以以任意顺序排列，<strong>求出最长的序列对(不必使用所有的数对)</strong>。(1&lt;=n&lt;=1000)</p><h2 id="题意解析"><a href="#题意解析" class="headerlink" title="题意解析"></a>题意解析</h2><p>首先附上<a href="https://leetcode.cn/problems/maximum-length-of-pair-chain/solution/zui-chang-shu-dui-lian-by-leetcode-solut-ifpn/">官方题解</a></p><p>这个题目与力扣的<a href="https://leetcode.cn/problems/longest-increasing-subsequence/">300. 最长递增子序列</a>的题目所使用的方法类似，可以使用动态规划<sup><a href="#fn_1" id="reffn_1">1</a></sup>的方法解决。<br><div class="tip info"><p>图片写法参考自<a href="https://www.acwing.com/video/327/">https://www.acwing.com/video/327/</a> </p></div><br><div class="img-wrap"><div class="img-bg"><img class="img" src="https://img.hipyt.cn/imgs/2022/09/01f559874e4e9f0e.jpg"/></div></div></p><p>对于当前第 i 个数对，如果可以和之前的某一个数对 j 形成数对链，那么 dp[i] 就可以更新为 dp[i] 和 dp[j]+1 的较大值。(<strong>dp[j]+1 表示前面的数对链加上当前数对的个数</strong>)<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if(p[i][0]&gt;p[j][1])</span><br><span class="line">&#123;</span><br><span class="line">    dp[i]=max(dp[i],dp[j]+1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findLongestChain</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; p)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">sort</span>(p.<span class="built_in">begin</span>(),p.<span class="built_in">end</span>()); <span class="comment">//考虑到题目说的任意顺序，这里一定要排序</span></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(p.size())</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;p.<span class="built_in">size</span>();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i]=<span class="number">1</span>; <span class="comment">//其本身也算一个</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=i;j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(p[i][<span class="number">0</span>]&gt;p[j][<span class="number">1</span>])</span><br><span class="line">                &#123;<span class="comment">//如果当前数对可以加在前面的数对链后面</span></span><br><span class="line">                    dp[i]=<span class="built_in">max</span>(dp[i],dp[j]+<span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;<span class="comment">//求出最大值</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> x : dp) ans=<span class="built_in">max</span>(ans,x);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><blockquote id="fn_1"><sup>1</sup>. 通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法。<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 每日一题--队列队 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 动态规划,线性dp,最长上升子序列 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2022-09-02未来可期小组每日一题</title>
       <link href="/posts/9f3c09a5.html"/>
       <url>/posts/9f3c09a5.html</url>
@@ -172,17 +197,6 @@
     
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title></title>
       <link href="/css/custom.css"/>
       <url>/css/custom.css</url>
@@ -197,6 +211,17 @@
       <title>标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
