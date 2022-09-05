@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>2022-09-05队列队每日一题</title>
+      <link href="/posts/1db78182.html"/>
+      <url>/posts/1db78182.html</url>
+      
+        <content type="html"><![CDATA[<div class="tag link"><a class="link-card" title="力扣 6168. 恰好移动 k 步到达某一位置的方法数目" href="https://leetcode.cn/problems/number-of-ways-to-reach-a-position-after-exactly-k-steps/"><div class="left"><img src="https://img.hipyt.cn/imgs/2022/09/e3f773cfe32f6f4f.jpg"/></div><div class="right"><p class="text">力扣 6168. 恰好移动 k 步到达某一位置的方法数目</p><p class="url">https://leetcode.cn/problems/number-of-ways-to-reach-a-position-after-exactly-k-steps/</p></div></a></div><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给一个起点 s 和终点 e，要求你走 k 步正好从 s到达 e，每一次可以可以向左或者向右走(<strong>走过终点再往回走也行</strong>)，求方案数 MOD 1e9+7 的结果。<br><div class="tip warning faa-parent animated-hover"><p class="faa-horizontal">注意数轴可能有负数</p></div></p><h2 id="题意解析"><a href="#题意解析" class="headerlink" title="题意解析"></a>题意解析</h2><p>使用动态规划：</p><blockquote><ol><li><span class='p red'>dp[i][j]表示走了 i 步，当前位置在 j 的时候的方案数</span></li><li><span class='p red'>初始值 dp[0][s]=1</span></li><li><span class='p red'>状态转移方程：f[i][j] = f[i-1][j-1] + f[i-1][j+1]</span>，表示上一步从左到右和从右到左到达当前位置的方案数总和</li></ol></blockquote><div class="tip warning faa-parent animated-hover"><p class="faa-horizontal">考虑到负数，我们给起点和终点加一个偏移量</p></div><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numberOfWays</span><span class="params">(<span class="type">int</span> s, <span class="type">int</span> e, <span class="type">int</span> k)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> dp[<span class="number">1010</span>][<span class="number">2010</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="type">const</span> <span class="type">int</span> MOD=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        s+=<span class="number">500</span>; e+=<span class="number">500</span>; <span class="comment">//偏移量</span></span><br><span class="line">        dp[<span class="number">0</span>][s]=<span class="number">1</span>; <span class="comment">//初始化</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=k;i++) <span class="comment">//一共只能走 k 步</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;<span class="number">2005</span>;j++)</span><br><span class="line">            &#123;</span><br><span class="line">                dp[i][j]+=dp[i<span class="number">-1</span>][j<span class="number">-1</span>]; <span class="comment">//从右走到达当前位置</span></span><br><span class="line">                dp[i][j]=(dp[i][j]+dp[i<span class="number">-1</span>][j+<span class="number">1</span>])%MOD; <span class="comment">//从左走到达当前位置</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[k][e];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 每日一题--队列队 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 动态规划 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>力扣第86场双周赛---第三题</title>
       <link href="/posts/73d80173.html"/>
       <url>/posts/73d80173.html</url>
