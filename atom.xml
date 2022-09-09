@@ -6,7 +6,7 @@
   <link href="https://hdheid.github.io/atom.xml" rel="self"/>
   
   <link href="https://hdheid.github.io/"/>
-  <updated>2022-09-09T01:33:30.677Z</updated>
+  <updated>2022-09-09T10:04:09.403Z</updated>
   <id>https://hdheid.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2022-09-09队列队每日一题</title>
+    <link href="https://hdheid.github.io/posts/f8553482.html"/>
+    <id>https://hdheid.github.io/posts/f8553482.html</id>
+    <published>2022-09-09T10:04:09.403Z</published>
+    <updated>2022-09-09T10:04:09.403Z</updated>
+    
+    <content type="html"><![CDATA[<div class="tag link"><a class="link-card" title="力扣 1598. 文件夹操作日志搜集器" href="https://leetcode.cn/problems/crawler-log-folder/submissions/"><div class="left"><img src="https://img.hipyt.cn/imgs/2022/09/e3f773cfe32f6f4f.jpg"/></div><div class="right"><p class="text">力扣 1598. 文件夹操作日志搜集器</p><p class="url">https://leetcode.cn/problems/crawler-log-folder/submissions/</p></div></a></div><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>太简单略</p><h2 id="题意解析"><a href="#题意解析" class="headerlink" title="题意解析"></a>题意解析</h2><p>这个题目没有思路，<span class='p red'>但是全是坑</span>。写的时候注意。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minOperations</span><span class="params">(vector&lt;string&gt;&amp; logs)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">       <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">auto</span> x : logs)</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">if</span>(x[<span class="number">0</span>]!=<span class="string">&#x27;.&#x27;</span>&amp;&amp;x[<span class="number">1</span>]!=<span class="string">&#x27;.&#x27;</span>) ans++;</span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">if</span>(x[<span class="number">0</span>]==<span class="string">&#x27;.&#x27;</span>&amp;&amp;x[<span class="number">1</span>]==<span class="string">&#x27;.&#x27;</span>) </span><br><span class="line">           &#123;</span><br><span class="line">               <span class="comment">//第一个坑</span></span><br><span class="line">               <span class="keyword">if</span>(ans) ans--;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//第二个坑</span></span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">max</span>(ans,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;div class=&quot;tag link&quot;&gt;&lt;a class=&quot;link-card&quot; title=&quot;力扣 1598. 文件夹操作日志搜集器&quot; href=&quot;https://leetcode.cn/problems/crawler-log-folder/submissions/&quot;&gt;&lt;</summary>
+      
+    
+    
+    
+    <category term="每日一题--队列队" scheme="https://hdheid.github.io/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-%E9%98%9F%E5%88%97%E9%98%9F/"/>
+    
+    
+    <category term="技巧题" scheme="https://hdheid.github.io/tags/%E6%8A%80%E5%B7%A7%E9%A2%98/"/>
+    
+  </entry>
   
   <entry>
     <title>2022-09-08未来可期小组每日一题</title>
@@ -437,9 +461,9 @@
     <category term="每日一题--队列队" scheme="https://hdheid.github.io/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-%E9%98%9F%E5%88%97%E9%98%9F/"/>
     
     
-    <category term="栈" scheme="https://hdheid.github.io/tags/%E6%A0%88/"/>
-    
     <category term="算法" scheme="https://hdheid.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="栈" scheme="https://hdheid.github.io/tags/%E6%A0%88/"/>
     
   </entry>
   
