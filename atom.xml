@@ -6,7 +6,7 @@
   <link href="https://hdheid.github.io/atom.xml" rel="self"/>
   
   <link href="https://hdheid.github.io/"/>
-  <updated>2022-09-09T10:04:09.403Z</updated>
+  <updated>2022-09-10T06:33:55.262Z</updated>
   <id>https://hdheid.github.io/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>2022-09-10队列队每日一题</title>
+    <link href="https://hdheid.github.io/posts/cd4d9c96.html"/>
+    <id>https://hdheid.github.io/posts/cd4d9c96.html</id>
+    <published>2022-09-10T06:33:55.262Z</published>
+    <updated>2022-09-10T06:33:55.262Z</updated>
+    
+    <content type="html"><![CDATA[<div class="tag link"><a class="link-card" title="力扣 669. 修剪二叉搜索树" href="https://leetcode.cn/problems/trim-a-binary-search-tree/submissions/"><div class="left"><img src="https://img.hipyt.cn/imgs/2022/09/e3f773cfe32f6f4f.jpg"/></div><div class="right"><p class="text">力扣 669. 修剪二叉搜索树</p><p class="url">https://leetcode.cn/problems/trim-a-binary-search-tree/submissions/</p></div></a></div><p><centre>## 题目大意&lt;/center&gt;<br>题目给出的是一个搜索二叉树，并且给出了一个区间 [ low , high ] ，要求我们将树上不在区间范围内的叶子都剪掉，并且保证结构不被破坏，右子节点还是右子节点，同理左还是左。</p><h2 id="题意解析"><a href="#题意解析" class="headerlink" title="题意解析"></a>题意解析</h2><div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">*递归做法*</button></li><li class="tab"><button type="button" data-href="#test1-2">*迭代做法*</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><blockquote><ol><li>我们将原函数当作递归函数，表示<strong>对子节点修剪后的结果</strong>。</li><li>如果当前节点为空，返回空。</li><li>如果<strong>当前节点的值小于 low</strong>，则当前节点的左节点及其所有子节点都小于 low，我们<strong>递归当前节点的右节点</strong>；</li><li>同理如果<strong>当前节点的值大于 high，我们递归左节点</strong>。</li><li>除此之外，符合要求的，我们将其左节点和右节点更新。</li></ol></blockquote><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><blockquote><ol><li>我们首先找到符合标准也就是在范围之内的结点，将其作为根节点</li><li>对于某一个符合要求的节点 node，我们先对左子树 left 进行修剪<ol><li>如果 left 的值小于 low，则证明 left 和其左子树都不符合要求，故我们将 node 的左节点设置为 left 的右节点</li><li>如果 left 的值大于等于 low，那么我们继续对 left 的左节点进行处理</li></ol></li><li>右节点同理左节点</li></ol>    </blockquote><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">*递归做法*</button></li><li class="tab"><button type="button" data-href="#test1-2">*迭代做法*</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">trimBST</span><span class="params">(TreeNode* root, <span class="type">int</span> low, <span class="type">int</span> high)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val&lt;low) <span class="keyword">return</span> <span class="built_in">trimBST</span>(root-&gt;right,low,high);</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val&gt;high) <span class="keyword">return</span> <span class="built_in">trimBST</span>(root-&gt;left,low,high);</span><br><span class="line"></span><br><span class="line">        root-&gt;right=<span class="built_in">trimBST</span>(root-&gt;right,low,high);</span><br><span class="line">        root-&gt;left=<span class="built_in">trimBST</span>(root-&gt;left,low,high);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">trimBST</span><span class="params">(TreeNode* root, <span class="type">int</span> low, <span class="type">int</span> high)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(root)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(low&lt;=root-&gt;val&amp;&amp;root-&gt;val&lt;=high) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;val&lt;low) root=root-&gt;right;</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;val&gt;high) root=root-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">auto</span> dian=root;</span><br><span class="line">        <span class="keyword">while</span>(dian-&gt;left)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(dian-&gt;left-&gt;val&lt;low) dian-&gt;left=dian-&gt;left-&gt;right;</span><br><span class="line">            <span class="keyword">else</span> dian=dian-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        dian=root;</span><br><span class="line">        <span class="keyword">while</span>(dian-&gt;right)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(dian-&gt;right-&gt;val&gt;high) dian-&gt;right=dian-&gt;right-&gt;left;</span><br><span class="line">            <span class="keyword">else</span> dian=dian-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;div class=&quot;tag link&quot;&gt;&lt;a class=&quot;link-card&quot; title=&quot;力扣 669. 修剪二叉搜索树&quot; href=&quot;https://leetcode.cn/problems/trim-a-binary-search-tree/submissions/</summary>
+      
+    
+    
+    
+    <category term="每日一题--队列队" scheme="https://hdheid.github.io/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-%E9%98%9F%E5%88%97%E9%98%9F/"/>
+    
+    
+    <category term="搜索二叉树" scheme="https://hdheid.github.io/tags/%E6%90%9C%E7%B4%A2%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>2022-09-09队列队每日一题</title>
     <link href="https://hdheid.github.io/posts/f8553482.html"/>
     <id>https://hdheid.github.io/posts/f8553482.html</id>
     <published>2022-09-09T10:04:09.403Z</published>
-    <updated>2022-09-09T10:04:09.403Z</updated>
+    <updated>2022-09-09T10:04:47.269Z</updated>
     
     <content type="html"><![CDATA[<div class="tag link"><a class="link-card" title="力扣 1598. 文件夹操作日志搜集器" href="https://leetcode.cn/problems/crawler-log-folder/submissions/"><div class="left"><img src="https://img.hipyt.cn/imgs/2022/09/e3f773cfe32f6f4f.jpg"/></div><div class="right"><p class="text">力扣 1598. 文件夹操作日志搜集器</p><p class="url">https://leetcode.cn/problems/crawler-log-folder/submissions/</p></div></a></div><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>太简单略</p><h2 id="题意解析"><a href="#题意解析" class="headerlink" title="题意解析"></a>题意解析</h2><p>这个题目没有思路，<span class='p red'>但是全是坑</span>。写的时候注意。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minOperations</span><span class="params">(vector&lt;string&gt;&amp; logs)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">       <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">auto</span> x : logs)</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">if</span>(x[<span class="number">0</span>]!=<span class="string">&#x27;.&#x27;</span>&amp;&amp;x[<span class="number">1</span>]!=<span class="string">&#x27;.&#x27;</span>) ans++;</span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">if</span>(x[<span class="number">0</span>]==<span class="string">&#x27;.&#x27;</span>&amp;&amp;x[<span class="number">1</span>]==<span class="string">&#x27;.&#x27;</span>) </span><br><span class="line">           &#123;</span><br><span class="line">               <span class="comment">//第一个坑</span></span><br><span class="line">               <span class="keyword">if</span>(ans) ans--;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//第二个坑</span></span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">max</span>(ans,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -108,9 +132,9 @@
     <category term="每日一题--队列队" scheme="https://hdheid.github.io/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-%E9%98%9F%E5%88%97%E9%98%9F/"/>
     
     
-    <category term="双指针" scheme="https://hdheid.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
     <category term="字符串处理" scheme="https://hdheid.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/"/>
+    
+    <category term="双指针" scheme="https://hdheid.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
   </entry>
   
@@ -491,26 +515,6 @@
     <category term="算法" scheme="https://hdheid.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="邻接表" scheme="https://hdheid.github.io/tags/%E9%82%BB%E6%8E%A5%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://hdheid.github.io/posts/4a17b156.html"/>
-    <id>https://hdheid.github.io/posts/4a17b156.html</id>
-    <published>2022-08-29T05:31:32.203Z</published>
-    <updated>2022-08-29T14:26:18.700Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
-      
-    
-    
-    
     
   </entry>
   
