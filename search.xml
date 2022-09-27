@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>2022-09-27队列队每日一题</title>
+      <link href="/posts/de719beb.html"/>
+      <url>/posts/de719beb.html</url>
+      
+        <content type="html"><![CDATA[<div class="tag link"><a class="link-card" title="AcWing 1100. 抓住那头牛" href="https://www.acwing.com/problem/content/1102/"><div class="left"><img src="https://img.hipyt.cn/imgs/2022/09/e3f773cfe32f6f4f.jpg"/></div><div class="right"><p class="text">AcWing 1100. 抓住那头牛</p><p class="url">https://www.acwing.com/problem/content/1102/</p></div></a></div><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>在一个数轴上，有两个点 n 和 k。</p><blockquote><p> n 的值可以变成 n-1，n+1 ，n*2 ，每变一次权值加一<br>求最小权值使得 n 等于 k</p></blockquote><h2 id="题意解析"><a href="#题意解析" class="headerlink" title="题意解析"></a>题意解析</h2><p>一道 bfs 的题目，同样的，以 n 为起点，以 k 为终点。有三种情况，也即是 dx[] = { 1 , -1 , x } ，x 为当前点的坐标。<br><strong>这个题目的左右界限为 0 - 1e5  当然也可以是 0 - k+1。</strong></p><p>题外评论：属实是长见识了，还能这样做。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">1e5</span>+<span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> d[N];</span><br><span class="line"><span class="type">int</span> n,k;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&gt;=k) &#123; d[k]=n-k; <span class="keyword">return</span> ;&#125;</span><br><span class="line">    </span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(n);</span><br><span class="line">    <span class="keyword">while</span>(q.<span class="built_in">size</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> x=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="type">const</span> <span class="type">int</span> dx[]=&#123;<span class="number">1</span>,<span class="number">-1</span>,x&#125;; <span class="comment">//两倍就是加一个x</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> xx=x+dx[i];</span><br><span class="line">            <span class="keyword">if</span>(xx&gt;=<span class="number">0</span>&amp;&amp;xx&lt;=<span class="number">1e5</span>&amp;&amp;(!d[xx]))</span><br><span class="line">            &#123;</span><br><span class="line">                d[xx]=d[x]+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span>(xx==k) <span class="keyword">return</span> ;</span><br><span class="line">                q.<span class="built_in">push</span>(xx);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;k;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">bfs</span>(n);</span><br><span class="line">    cout&lt;&lt;d[k];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 每日一题--队列队 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> bfs </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2022-09-26队列队每日一题</title>
       <link href="/posts/c959ff2b.html"/>
       <url>/posts/c959ff2b.html</url>
@@ -1076,9 +1101,9 @@
     
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -1087,9 +1112,9 @@
     
     
     <entry>
-      <title>标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
