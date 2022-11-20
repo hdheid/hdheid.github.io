@@ -6,7 +6,7 @@
   <link href="https://hdheid.github.io/atom.xml" rel="self"/>
   
   <link href="https://hdheid.github.io/"/>
-  <updated>2022-10-05T11:17:09.926Z</updated>
+  <updated>2022-11-20T08:56:12.603Z</updated>
   <id>https://hdheid.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2022-11-20栈队每日一题</title>
+    <link href="https://hdheid.github.io/posts/18e4c254.html"/>
+    <id>https://hdheid.github.io/posts/18e4c254.html</id>
+    <published>2022-11-20T08:56:12.603Z</published>
+    <updated>2022-11-20T08:56:12.603Z</updated>
+    
+    <content type="html"><![CDATA[<div class="tag link"><a class="link-card" title="acwing 1017. 怪盗基德的滑翔翼" href="https://www.acwing.com/problem/content/1019/"><div class="left"><img src="https://img.hipyt.cn/imgs/2022/09/e3f773cfe32f6f4f.jpg"/></div><div class="right"><p class="text">acwing 1017. 怪盗基德的滑翔翼</p><p class="url">https://www.acwing.com/problem/content/1019/</p></div></a></div><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>用 N 个建筑排成一条线，高度不尽相同，怪盗基德可以<strong>任意选择一个楼作为起点</strong>，向左或者向右飞行，但是<strong>每一次的落点都必须比上一次的楼层低</strong>，求怪盗基德最多可以落多少个建筑物。</p><h2 id="题意解析"><a href="#题意解析" class="headerlink" title="题意解析"></a>题意解析</h2><ol><li>当怪盗基德只往左飞的时候，如果以任意一栋楼 i 作为起点，那么就可以看成以 i 为端点的最长上升子序列</li><li>当怪盗基德只往右飞的时候，如果以任意一栋楼 i 作为起点，那么就可以看成以 i 为端点的最长下降子序列，也就是从右往左的最长上升子序列</li></ol><p>因此这个题目的解题思路就是分别<strong>从左往右</strong>和<strong>从右往左</strong>求一遍最长上升子序列，然后<strong>求最大值</strong>即可。</p><p>那么接下来看一看最长上升子序列，最长上升子序列经典例题：<a href="https://leetcode.cn/problems/longest-increasing-subsequence/">300. 最长递增子序列</a></p><p>最长上升子序列</p><ul><li>状态表示：dp[i] 表示从第一个数开始，以 第 i 个数结尾的上升子序列  ，属性为（Max）</li><li>状态计算：当 dp[j]&lt;dp[i]的时候 ： dp[i]=max(dp[i],dp[j]+1)  <strong>(j&lt;i)，dp[i] 初始值为 1</strong></li></ul><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">110</span>;</span><br><span class="line"><span class="type">int</span> a[N];</span><br><span class="line"><span class="type">int</span> dp[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> t; cin&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> n; cin&gt;&gt;n;</span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) cin&gt;&gt;a[i];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//最长上升子序列</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;i;j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(a[i]&gt;a[j]) dp[i]=<span class="built_in">max</span>(dp[i],dp[j]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            ans=<span class="built_in">max</span>(ans,dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//最长下降子序列，就是上升子序列反过来</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=n;i;i--)</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=n;j&gt;i;j--)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(a[i]&gt;a[j]) dp[i]=<span class="built_in">max</span>(dp[i],dp[j]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            ans=<span class="built_in">max</span>(ans,dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;div class=&quot;tag link&quot;&gt;&lt;a class=&quot;link-card&quot; title=&quot;acwing 1017. 怪盗基德的滑翔翼&quot; href=&quot;https://www.acwing.com/problem/content/1019/&quot;&gt;&lt;div class=&quot;lef</summary>
+      
+    
+    
+    
+    <category term="每日一题--栈队" scheme="https://hdheid.github.io/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-%E6%A0%88%E9%98%9F/"/>
+    
+    
+    <category term="动态规划" scheme="https://hdheid.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+  </entry>
   
   <entry>
     <title>2022-10-05队列队每日一题</title>
@@ -469,30 +493,6 @@
     
     
     <category term="进制转换" scheme="https://hdheid.github.io/tags/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>力扣第309场周赛---第三题</title>
-    <link href="https://hdheid.github.io/posts/cdca7fb6.html"/>
-    <id>https://hdheid.github.io/posts/cdca7fb6.html</id>
-    <published>2022-09-11T06:10:17.486Z</published>
-    <updated>2022-09-11T06:11:42.340Z</updated>
-    
-    <content type="html"><![CDATA[<div class="tag link"><a class="link-card" title="力扣 2401. 最长优雅子数组" href="https://leetcode.cn/problems/longest-nice-subarray/submissions/"><div class="left"><img src="https://img.hipyt.cn/imgs/2022/09/e3f773cfe32f6f4f.jpg"/></div><div class="right"><p class="text">力扣 2401. 最长优雅子数组</p><p class="url">https://leetcode.cn/problems/longest-nice-subarray/submissions/</p></div></a></div><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给出一个数组，求出最长的优雅子数组数组。<br><em>优雅子数组</em>：对于这个数组中的每一个数，两两相与的结果为 0。</p><h2 id="题意解析"><a href="#题意解析" class="headerlink" title="题意解析"></a>题意解析</h2><p>很经典的双指针的题目。<br>我们定义 l，r 为子区间的左右端点，r 不断的遍历数组。对于每一次遍历，定义 x 指针，从 r 开始向左移动，<span class='p red'>如果存在与 r 点的数 & 不为零的，那么 l 就更新为 x++</span>。每一次都更新 ans 的值。</p><p><br><br><br></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">longestNiceSubarray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>;r&lt;nums.<span class="built_in">size</span>();r++) <span class="comment">//遍历右端点</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> x=r;</span><br><span class="line">            <span class="keyword">while</span>(x!=l)</span><br><span class="line">            &#123;</span><br><span class="line">                x--;</span><br><span class="line">                <span class="keyword">if</span>(nums[x]&amp;nums[r]) <span class="comment">//找到以 r 为右端点的最长的字数组</span></span><br><span class="line">                &#123;</span><br><span class="line">                    l=++x;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ans=<span class="built_in">max</span>(ans,r-l+<span class="number">1</span>);  <span class="comment">//更新答案</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;div class=&quot;tag link&quot;&gt;&lt;a class=&quot;link-card&quot; title=&quot;力扣 2401. 最长优雅子数组&quot; href=&quot;https://leetcode.cn/problems/longest-nice-subarray/submissions/&quot;&gt;&lt;</summary>
-      
-    
-    
-    
-    <category term="力扣周赛" scheme="https://hdheid.github.io/categories/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B/"/>
-    
-    
-    <category term="双指针" scheme="https://hdheid.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
   </entry>
   
